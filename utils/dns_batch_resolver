@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Usage: ./dns_batch_resolver <domains_list_file> <output_ipv4> <output_ipv6> <ipv6_support>
+# Example: ./dns_batch_resolver domains.txt ip4.txt  # ipv6 support disabled
+# Example: ./dns_batch_resolver domains.txt ip4.txt ip6.txt 1 # ipv6 support enabled
+
+set -eu
+
+main() {
+    local domains_list_file="$1"
+    local output_ipv4="$2"
+    local output_ipv6="${3:-}"
+    local ipv6_support="${4:-0}"
+
+    __dns_batch_resolver.py --cleanup < "$domains_list_file"
+    __dns_batch_resolver.py --resolve < "$domains_list_file"
+    __dns_batch_resolver.py --query ip < "$domains_list_file" > "$output_ipv4"
+    if [ "$ipv6_support" == '1' ]; then
+        dns_batch_resolver.py --query ipv6 < "$domains_list_file" > "$output_ipv6"
+    fi
+}
+
+main "$@"
