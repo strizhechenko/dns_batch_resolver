@@ -22,12 +22,4 @@ CURRENT_UNIXTIME = lambda: int(datetime.now().strftime("%s"))
 
 if __name__ == '__main__':
     print CONFIG
-
-#
-# DNS_BLACKHOLES = ['127.0.0.1', '95.213.143.204']
-# if os.environ.get('DNS_BLACKHOLE_IP'):
-#     DNS_BLACKHOLES.append(os.environ.get('DNS_BLACKHOLE_IP'))
-#
-# if not PRODUCTION:
-#     MAIN_DIR = os.getcwd() + '/'
-#
+    
